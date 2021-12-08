@@ -25,7 +25,7 @@ public class L06b {
 		final Map<Integer, Long> occ = Stream.of(_fish.get(0).split(","))
 				.collect(Collectors.groupingBy(f -> Integer.valueOf(f), Collectors.counting()));
 
-		System.out.println("No Fish: " + occ.entrySet().stream().map(e -> e.getValue() * countFish(e.getKey()))
+		System.out.println("Number of fish: " + occ.entrySet().stream().map(e -> e.getValue() * countFish(e.getKey()))
 				.mapToLong(Long::longValue).sum());
 	}
 
