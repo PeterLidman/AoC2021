@@ -31,21 +31,15 @@ public class L12b {
 				break;
 			}
 		}
-		mayVisitAgain.remove("start");
-		mayVisitAgain.remove("end");
-//		System.out.println("may again " + mayVisitAgain);
-		int c = countRoutes(s, new ArrayList<String>(), new ArrayList<String>(), mayVisitAgain);
+		int c = countRoutes(s, new ArrayList<String>(), mayVisitAgain);
 		System.out.println("Number of paths: " + c);
 	}
 
-	private static int countRoutes(Rum rum, List<String> visited, List<String> route, Set<String> may) {
+	private static int countRoutes(Rum rum, List<String> visited, Set<String> may) {
 		Set<String> newMay = new HashSet<>(may);
 
 		if (rum.namn.equals("end")) {
 			visited.add(rum.namn);
-			route.add(rum.namn);
-//			System.out.println("Visited: " + visited);
-//			System.out.println("Route: " + route);
 			return 1;
 		}
 		if (rum.namn.charAt(0) >= 'a' && rum.namn.charAt(0) <= 'z' && visited.contains(rum.namn)) {
@@ -59,12 +53,10 @@ public class L12b {
 			}
 		}
 		List<String> newVisited = new ArrayList<>(visited);
-		List<String> newRoute = new ArrayList<>(route);
 		newVisited.add(rum.namn);
-		newRoute.add(rum.namn);
 		int c = 0;
 		for (Rum passage : rum.passage) {
-			c += countRoutes(passage, newVisited, newRoute, newMay);
+			c += countRoutes(passage, newVisited, newMay);
 		}
 		return c;
 	}

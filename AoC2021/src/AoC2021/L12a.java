@@ -27,29 +27,23 @@ public class L12a {
 				break;
 			}
 		}
-		int c = countRoutes(s, new ArrayList<String>(), new ArrayList<String>());
+		int c = countRoutes(s, new ArrayList<String>());
 		System.out.println("Number of paths: " + c);
 	}
 
-	private static int countRoutes(Rum rum, List<String> visited, List<String> route) {
+	private static int countRoutes(Rum rum, List<String> visited) {
 		if (rum.namn.equals("end")) {
 			visited.add(rum.namn);
-			route.add(rum.namn);
 			return 1;
 		}
-
 		if (rum.namn.charAt(0) >= 'a' && rum.namn.charAt(0) <= 'z' && visited.contains(rum.namn)) {
 			return 0;
 		}
-
 		List<String> newVisited = new ArrayList<>(visited);
-		List<String> newRoute = new ArrayList<>(route);
 		newVisited.add(rum.namn);
-		newRoute.add(rum.namn);
-
 		int c = 0;
 		for (Rum passage : rum.passage) {
-			c += countRoutes(passage, newVisited, newRoute);
+			c += countRoutes(passage, newVisited);
 		}
 		return c;
 	}
@@ -90,16 +84,6 @@ class Rum {
 
 	public void addPassage(Rum r) {
 		passage.add(r);
-	}
-
-	@Override
-	public String toString() {
-		String s = namn + "<";
-		for (Rum p : passage) {
-			s += p.namn + ",";
-		}
-		s += ">";
-		return s;
 	}
 
 }
